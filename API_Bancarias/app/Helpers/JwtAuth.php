@@ -5,7 +5,9 @@ namespace App\Helpers;
 use Firebase\JWT\JWT;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use DomainException;
 use Firebase\JWT\Key;
+use Symfony\Component\HttpFoundation\File\Exception\UnexpectedTypeException;
 
 class JwtAuth
 {
@@ -23,6 +25,7 @@ class JwtAuth
         if (is_object($client)) {
             $login = true;
         }
+
         if ($login) {
             $data = array(
                 'clientName' => $client->clientName,
@@ -51,20 +54,20 @@ class JwtAuth
         return $data;
     }
 
-    public function checkToken($jwt, $getIdentity = false)
+    public function checkToken($jwt, $getIdentity = true)
     {
         $auth = false;
 
         try {
             $jwt = str_replace('"', '', $jwt);
-            $decoded = JWT::decode($jwt, $this->secretKey, ['HS256']);
-        } catch (\UnexpectedValueException $e) {
+            $decoded = JWT::decode($jwt, new key($this->secretKey, 'HS256'));
+        } catch (UnexpectedTypeException $e) {
             $auth = false;
-        } catch (\DomainException $e) {
+        } catch (DomainException $e) {
             $auth = false;
         }
 
-        if (!empty($decoded) && is_object($decoded) && isset($decoded->userId)) {
+        if (!empty($decoded) && is_object($decoded) && isset($decoded->clientId) && isset($decoded->clientSecret)) {
             $auth = true;
         } else {
             $auth = false;
