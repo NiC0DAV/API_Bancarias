@@ -48,15 +48,6 @@ class UserController extends Controller
             'clientSecret' => $clientSecret,
         ])->first();
 
-        // $response = array(
-        //     'status' => 'Success',
-        //     'code' => 200,
-        //     'message' => 'El usuario ha sido identificado exitosamente.',
-        //     'data' => $checkClient
-        // );
-
-        // return response()->json($response, $response['code']);
-        // die();
         if ($checkClient != null && !empty($checkClient)) {
 
             $validate = Validator::make($paramsArr, [
