@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FinancierController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\ApiAuthMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
