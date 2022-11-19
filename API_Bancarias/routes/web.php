@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::post('createClient', 'App\Http\Controllers\UserController@createClient');
+
+Route::post('credit/authenticate', 'App\Http\Controllers\UserController@MSCusBilCredAuthenticateEF');
