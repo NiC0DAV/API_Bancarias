@@ -23,7 +23,7 @@ class FinancierController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function MSCusBilCredSimulateEF (MSCusBilCredSimulateEFRequest $request)
+    public function MSCusBilCredSimulateEF(MSCusBilCredSimulateEFRequest $request)
     {
         echo "hola"; exit;
     }

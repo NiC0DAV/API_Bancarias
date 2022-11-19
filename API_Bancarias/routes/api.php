@@ -22,5 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('createClient', [UserController::class, 'createClient'])->name('createClient');
-Route::post('credit/authenticate', [UserController::class, 'MSCusBilCredAuthenticateEF'])->name('MSCusBilCredAuthenticateEF');
-Route::post('credit/simulate', [FinancierController::class, 'MSCusBilCredSimulateEF'])->name('MSCusBilCredSimulateEF');
+Route::post('credit/authenticate', [UserController::class, 'MSCusBilCredAuthenticateEF'])->name('authenticate');
+Route::post('credit/simulate', [FinancierController::class, 'MSCusBilCredSimulateEF'])->name('simulate');
