@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('createClient', 'App\Http\Controllers\UserController@createClient');
-
-Route::post('credit/authenticate', 'App\Http\Controllers\UserController@MSCusBilCredAuthenticateEF');
+Route::post('createClient', [UserController::class, 'createClient'])->name('createClient');
+Route::post('credit/authenticate', [UserController::class, 'MSCusBilCredAuthenticateEF'])->name('MSCusBilCredAuthenticateEF');
