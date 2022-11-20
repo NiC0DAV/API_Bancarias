@@ -17,10 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::post('createClient', [UserController::class, 'createClient'])->name('createClient')->middleware(ApiAuthMiddleware::class);
 Route::post('credit/authenticate', [UserController::class, 'MSCusBilCredAuthenticateEF'])->name('authenticate');
-Route::post('credit/simulate', [FinancierController::class, 'MSCusBilCredSimulateEF'])->name('simulate');
+Route::group(['middleware' => 'ApiAuthMiddleware'], function () {
+    Route::post('createClient', [UserController::class, 'createClient'])->name('createClient');
+    Route::post('credit/simulate', [FinancierController::class, 'MSCusBilCredSimulateEF'])->name('simulate');
+});
