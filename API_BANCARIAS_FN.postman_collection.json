@@ -1,0 +1,234 @@
+{
+	"info": {
+		"_postman_id": "de45f873-39d2-4451-a774-1eeaf0f7a333",
+		"name": "API_BANCARIAS_FN",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12775013"
+	},
+	"item": [
+		{
+			"name": "Simulate",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnROYW1lIjoiYmFuY2FEaW5lciIsImNsaWVudElkIjoiOGRlY2RkOTMwNGIwM2E2ZDBmN2VkNjNmMDA2OTE0ZTMiLCJjbGllbnRTZWNyZXQiOiI4YTkzNDQyNTlkMzIxMmQ5NTdiODhlMDg2YmE3ZWVkZiIsImlhdCI6MTY2ODk3NzA4NiwiZXhwIjoxNjY4OTc3Mzg2fQ.qul3_r_INUQjJpZipxZHjJpPCEdMspao9NtaY-j0tzs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnROYW1lIjoiYmFuY2FEaW5lciIsImNsaWVudElkIjoiOGRlY2RkOTMwNGIwM2E2ZDBmN2VkNjNmMDA2OTE0ZTMiLCJjbGllbnRTZWNyZXQiOiI4YTkzNDQyNTlkMzIxMmQ5NTdiODhlMDg2YmE3ZWVkZiIsImlhdCI6MTY2ODk3NjY2NSwiZXhwIjoxNjY4OTc2OTY1fQ.B7ruYRu-W4R1ACb38hIeyLo6yA4Ncf-NIM1FFPhWfo0",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "financialCode",
+							"value": "001",
+							"type": "text"
+						},
+						{
+							"key": "totalAmount",
+							"value": "500000",
+							"type": "text"
+						},
+						{
+							"key": "shippingAmount",
+							"value": "35000",
+							"type": "text"
+						},
+						{
+							"key": "totalTaxesAmount",
+							"value": "12",
+							"type": "text"
+						},
+						{
+							"key": "currency",
+							"value": "COP",
+							"type": "text"
+						},
+						{
+							"key": "documentType",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "documentNumber",
+							"value": "1193461958",
+							"type": "text"
+						},
+						{
+							"key": "firstName",
+							"value": "Nicolas",
+							"type": "text"
+						},
+						{
+							"key": "lastName",
+							"value": "Estevez",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "guarantee@claro.com.co",
+							"type": "text"
+						},
+						{
+							"key": "mobileNumber",
+							"value": "3507156518",
+							"type": "text"
+						},
+						{
+							"key": "mobileNumberCountryCode",
+							"value": "+57",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/credit/simulate",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"credit",
+						"simulate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "authenticate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "clientId",
+							"value": "8decdd9304b03a6d0f7ed63f006914e3",
+							"type": "text"
+						},
+						{
+							"key": "clientSecret",
+							"value": "8a9344259d3212d957b88e086ba7eedf",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/credit/authenticate",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"credit",
+						"authenticate"
+					],
+					"query": [
+						{
+							"key": "clientId",
+							"value": "0ea2999a07e1b7e5c5b52d37746d1b2f",
+							"disabled": true
+						},
+						{
+							"key": "clientSecret",
+							"value": "e7ab53d032789038586eeded888e3542",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "authenticate",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnROYW1lIjoicHJlc3RhWWEiLCJjbGllbnRJZCI6IjYyYmNmMmUwNmYxYmJkOTFmODY4YTI1OWU4ZTU3NGExIiwiY2xpZW50U2VjcmV0IjoiYzhhOGZkM2E4YzA0NmE2MTgzMjQ4ODljYWM0YmRjNzgiLCJpYXQiOjE2Njg5MjAyNDAsImV4cCI6MTY2ODkyMDU0MH0.spbqPoSZNHynZiLcJa0VguwjTw7-LlMzBi07qpYzvig",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnROYW1lIjoicHJlc3RhWWEiLCJjbGllbnRJZCI6IjYyYmNmMmUwNmYxYmJkOTFmODY4YTI1OWU4ZTU3NGExIiwiY2xpZW50U2VjcmV0IjoiYzhhOGZkM2E4YzA0NmE2MTgzMjQ4ODljYWM0YmRjNzgiLCJpYXQiOjE2Njg5MTk2OTQsImV4cCI6MTY2ODkxOTk5NH0.u9nlPQjepVK-yhdg9_oIKcAgGUW-LVyXg68N-VUpcHE",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "cliente",
+							"value": "bancaDiner",
+							"type": "text"
+						},
+						{
+							"key": "codigoFinanciero",
+							"value": "001",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/createClient",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"createClient"
+					],
+					"query": [
+						{
+							"key": "cliente",
+							"value": "bancadiner",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
