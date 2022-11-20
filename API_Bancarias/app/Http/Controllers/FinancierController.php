@@ -29,12 +29,13 @@ class FinancierController extends Controller
     {
         $request['requestIP'] = request()->ip();
         $request['requestDate'] = date('Y-m-d H:i:s');
-        $financeValidation = $this->checkIfIsvalidToFinance($request['email']);
+        $financeValidation = $this->checkIfIsvalidToFinance($request['client']['email']);
         $request['interestRateType'] = 1;
         $request['interestRate'] = 15.0;
         $request['maximunPaymentTerm'] = 36;
         $creditSimulateValues = array_merge($request->all(), $financeValidation);
-        unset($request, $financeValidation);
+        $creditSimulateValues = array_merge($creditSimulateValues, $creditSimulateValues['client']);
+        unset($request, $financeValidation, $creditSimulateValues['client']);
         $creditSimulate = new CreditSimulate();
         $creditSimulate->fill($creditSimulateValues);
         $creditSimulate->save();
