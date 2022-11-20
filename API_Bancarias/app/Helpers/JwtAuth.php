@@ -3,14 +3,11 @@
 namespace App\Helpers;
 
 use Firebase\JWT\JWT;
-use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use DomainException;
 use Firebase\JWT\ExpiredException;
 use Firebase\JWT\Key;
-use Firebase\JWT\SignatureInvalidException;
 use InvalidArgumentException;
-use Symfony\Component\HttpFoundation\File\Exception\UnexpectedTypeException;
 use UnexpectedValueException;
 
 class JwtAuth
@@ -63,7 +60,14 @@ class JwtAuth
         $response = false;
 
         try {
-            $jwt = str_replace('"', '', $jwt);
+            if (strpos($jwt, 'Bearer') !== false) {
+                $jwt = str_replace(array('"'), '', $jwt);
+                $jwt = ltrim($jwt, 'Bearer');
+                $jwt = ltrim($jwt, ' ');
+            } else {
+                $jwt = str_replace(array('"'), '', $jwt);
+            }
+
             $decoded = JWT::decode($jwt, new key($this->secretKey, 'HS256'));
         } catch (DomainException $e) {
             $response = 'Unsupported algorithm or bad key was specified';

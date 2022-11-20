@@ -3,35 +3,61 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Helpers\JwtAuth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['MSCusBilCredAuthenticateEF', 'createClient']]);
+    }
+
     public function createClient(Request $request)
     {
         $clientName = $request->input('cliente', null);
+        $financialCode = $request->input('codigoFinanciero', null);
         $unixTime = strtotime('now');
         $clientId = md5(uniqid($unixTime . $clientName, true));
         $clientSecret = md5(uniqid($unixTime . $clientName, true));
 
-        $client = new User();
-        $client->clientName = $clientName;
-        $client->clientStatus = 'active';
-        $client->clientId = $clientId;
-        $client->clientSecret = $clientSecret;
-        $client->save();
+        $paramsArr = ['clientId' => $clientId, 'clientSecret' => $clientSecret, 'financialCode' => $financialCode, 'clientName' => $clientName];
 
-        $response = array(
-            'status' => 'Success',
-            'code' => 200,
-            'message' => 'El cliente se ha creado correctamente',
-            'clientId' => $client->clientId,
-            'clientSecret' => $client->clientSecret
-        );
+        $validate = Validator::make($paramsArr, [
+            'clientId' => 'required|unique:users',
+            'clientSecret' => 'required|unique:users',
+            'financialCode' => 'required|unique:users',
+            'clientName' => 'required'
+        ]);
+
+        if ($validate->fails()) {
+            $response = array(
+                'status' => 'Invalid Client',
+                'code' => 404,
+                'message' => 'The client could not be registered.',
+                'data' => $validate->errors()
+            );
+        } else {
+            $client = new User();
+            $client->clientName = $clientName;
+            $client->clientStatus = 'active';
+            $client->clientId = $clientId;
+            $client->clientSecret = $clientSecret;
+            $client->financialCode = $financialCode;
+            $client->save();
+
+            $response = array(
+                'status' => 'Success',
+                'code' => 200,
+                'message' => 'The client has been created successfully',
+                'clientId' => $client->clientId,
+                'clientSecret' => $client->clientSecret
+            );
+        }
 
         return response()->json($response, $response['code']);
     }
@@ -57,40 +83,37 @@ class UserController extends Controller
 
             if ($validate->fails()) {
                 $response = array(
-                    'status' => 'Error',
-                    'code' => 404,
-                    'message' => 'El cliente no se ha podido identificar o los datos ingresados no son validos',
+                    'status' => 'Invalid Client',
+                    'message' => 'The client could not be identified or the entered data is invalid',
                     'data' => $validate->errors()
                 );
+                $status = 404;
             } else {
-
                 $signUp = $jwtAuth->loginClient($paramsArr['clientId'], $paramsArr['clientSecret']);
-
                 if (!empty($signUp) && $signUp != '') {
                     $response = array(
-                        'status' => 'Success',
-                        'code' => 200,
-                        'message' => 'El usuario ha sido identificado exitosamente.',
-                        'data' => $signUp
+                        'access_token:' => $signUp,
+                        'expiration_time' => '5 minutes',
                     );
+                    $status = 200;
                 } else {
                     $response = array(
                         'status' => 'Error',
-                        'code' => 500,
-                        'message' => 'Ocurrio un error mientras el usuario iniciaba sesión.',
+                        'message' => 'There was an error while the authentication was in progress.',
                         'data' => ''
                     );
+                    $status = 404;
                 }
             }
         } else {
             $response = array(
                 'status' => 'Error',
-                'code' => 404,
-                'message' => 'El cliente con el que intenta autenticarse no existe en el sistema.',
+                'message' => 'The client does not exist on the database.',
                 'data' => ''
             );
+            $status = 404;
         }
 
-        return response()->json($response, $response['code']);
+        return response()->json($response, $status);
     }
 }
