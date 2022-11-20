@@ -1,9 +1,8 @@
 <?php
 
+use App\Http\Controllers\CreditInscriptionController;
 use App\Http\Controllers\FinancierController;
 use App\Http\Controllers\UserController;
-use App\Http\Middleware\ApiAuthMiddleware;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +22,10 @@ Route::group(['middleware' => 'ApiAuthMiddleware'], function () {
 
 
 });
+<<<<<<< HEAD
+Route::post('credit/inscription', [CreditInscriptionController::class, 'MSCusBilCredInscriptionEF'])->name('inscription');
+=======
 
 Route::post('credit/simulate', [FinancierController::class, 'MSCusBilCredSimulateEF'])->name('simulate');
 
+>>>>>>> dedc25bc91ba75bd867b02dedf0158af35e55b10
