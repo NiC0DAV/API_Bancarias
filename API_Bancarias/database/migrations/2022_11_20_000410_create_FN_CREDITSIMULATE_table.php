@@ -21,7 +21,7 @@ class CreateFNCREDITSIMULATETable extends Migration
             $table->string('currency');
             $table->integer('documentType');
             $table->string('documentNumber');
-            $table->decimal('firstName');
+            $table->string('firstName');
             $table->string('lastName');
             $table->string('email');
             $table->string('mobileNumber');
@@ -30,6 +30,8 @@ class CreateFNCREDITSIMULATETable extends Migration
             $table->string('causalRejection')->nullable();
             $table->string('maximunPaymentTerm');
             $table->string('guaranteeRate')->nullable();
+            $table->string('requestIP');
+            $table->timestamp('requestDate');
             $table->timestamps();
         });
     }
@@ -41,6 +43,6 @@ class CreateFNCREDITSIMULATETable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fN_CREDITSIMULATE');
+        Schema::dropIfExists('FN_CREDITSIMULATE');
     }
 }
