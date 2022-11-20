@@ -21,14 +21,14 @@ class ApiAuthMiddleware
         $jwtValidator = new JwtAuth();
         $checkToken = $jwtValidator->checkToken($tokenAuth);
 
-        if ($checkToken) {
+        if ($checkToken === true) {
             return $next($request);
         } else {
 
             $data = array(
-                'code' => 400,
+                'code' => 404,
                 'status' => 'Error',
-                'message' => 'Error el usuario no esta identificado'
+                'message' => $checkToken
             );
 
             return response()->json($data, $data['code']);

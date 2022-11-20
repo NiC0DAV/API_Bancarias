@@ -6,8 +6,12 @@ use Firebase\JWT\JWT;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use DomainException;
+use Firebase\JWT\ExpiredException;
 use Firebase\JWT\Key;
+use Firebase\JWT\SignatureInvalidException;
+use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\File\Exception\UnexpectedTypeException;
+use UnexpectedValueException;
 
 class JwtAuth
 {
@@ -54,29 +58,31 @@ class JwtAuth
         return $data;
     }
 
-    public function checkToken($jwt, $getIdentity = true)
+    public function checkToken($jwt, $getIdentity = false)
     {
-        $auth = false;
+        $response = false;
 
         try {
             $jwt = str_replace('"', '', $jwt);
             $decoded = JWT::decode($jwt, new key($this->secretKey, 'HS256'));
-        } catch (UnexpectedTypeException $e) {
-            $auth = false;
         } catch (DomainException $e) {
-            $auth = false;
+            $response = 'Unsupported algorithm or bad key was specified';
+        } catch (ExpiredException $e) {
+            $response = 'Expired token';
+        } catch (InvalidArgumentException $e) {
+            $response = 'Key may not be empty';
+        } catch (UnexpectedValueException $e) {
+            $response = 'Wrong number of segments';
         }
 
         if (!empty($decoded) && is_object($decoded) && isset($decoded->clientId) && isset($decoded->clientSecret)) {
-            $auth = true;
-        } else {
-            $auth = false;
+            $response = true;
         }
 
         if ($getIdentity) {
             return $decoded;
         }
 
-        return $auth;
+        return $response;
     }
 }
