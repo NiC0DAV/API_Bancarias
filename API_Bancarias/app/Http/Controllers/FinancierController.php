@@ -25,7 +25,8 @@ class FinancierController extends Controller
      */
     public function MSCusBilCredSimulateEF(MSCusBilCredSimulateEFRequest $request)
     {
-        echo "hola"; exit;
+        $requestIP = request()->ip();
+        $currentDateRequest = date('Y-m-d H:i:s');
     }
 
     /**
