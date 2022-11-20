@@ -23,8 +23,8 @@ class CreateFNCREDITINSCRIPTIONSTable extends Migration
             $table->decimal('shippingAmount');
             $table->decimal('totalTaxesAmount');
             $table->string('currency');
-            $table->int('clientDocType');
-            $table->int('clientDocNumber');
+            $table->integer('clientDocType');
+            $table->integer('clientDocNumber');
             $table->string('firstName');
             $table->string('lastName');
             $table->string('email');
