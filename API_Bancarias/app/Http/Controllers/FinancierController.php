@@ -27,6 +27,7 @@ class FinancierController extends Controller
      */
     public function MSCusBilCredSimulateEF(MSCusBilCredSimulateEFRequest $request)
     {
+        echo "hola"; exit;
         $request['requestIp'] = request()->ip();
         $request['requestDate'] = date('Y-m-d H:i:s');
         $financeValidation = $this->checkIfIsvalidToFinance($request['email']);

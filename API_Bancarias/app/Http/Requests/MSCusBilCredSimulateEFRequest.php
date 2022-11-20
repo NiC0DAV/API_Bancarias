@@ -24,18 +24,22 @@ class MSCusBilCredSimulateEFRequest extends FormRequest
     public function rules()
     {
         return [
-            'financialCode'           =>    'required',
-            'totalAmount'             =>    'required|numeric|digits_between:4,8',
-            'shippingAmount'          =>    'required|numeric',
-            'totalTaxesAmount'        =>    'required|numeric',
-            'currency'                =>    'required',
-            'documentType'            =>    'required|numeric',
-            'documentNumber'          =>    'required',
-            'firstName'               =>    'required',
-            'lastName'                =>    'required',
-            'email'                   =>    'required|email',
-            'mobileNumber'            =>    'required',
-            'mobileNumberCountryCode' =>    'required'
+            'financialCode'                  =>    'required',
+            'totalAmount'                    =>    'required|numeric|digits_between:4,8',
+            'shippingAmount'                 =>    'required|numeric',
+            'totalTaxesAmount'               =>    'required|numeric',
+            'currency'                       =>    'required',
+            'client'                         =>    'required|array:documentType,documentNumber,firstName,lastName,email,mobileNumber,mobileNumberCountryCode',
+            'client.documentType'            =>    'required|numeric',
+            'client.documentNumber'          =>    'required',
+            'client.firstName'               =>    'required',
+            'client.lastName'                =>    'required',
+            'client.email'                   =>    'required|email',
+            'client.mobileNumber'            =>    'required',
+            'client.mobileNumberCountryCode' =>    'required'
         ];
+
+
     }
+
 }
