@@ -46,7 +46,7 @@ class FinancierController extends Controller
         $response['interestRate'] = $creditSimulateValues['interestRate'];
         $response['interestRateType'] = $creditSimulateValues['interestRateType'];
         $response['guaranteeRate'] =  $creditSimulateValues['guaranteeRate'];
-        $response['conditionsUrl'] =  'www.mysandboxfinancer.com/finance-conditions';
+        $response['conditionsUrl'] =  route('fn-conditions');
         return response()->json($response);
     }
 
