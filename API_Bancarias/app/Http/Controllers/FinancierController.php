@@ -27,8 +27,7 @@ class FinancierController extends Controller
      */
     public function MSCusBilCredSimulateEF(MSCusBilCredSimulateEFRequest $request)
     {
-        echo "hola"; exit;
-        $request['requestIp'] = request()->ip();
+        $request['requestIP'] = request()->ip();
         $request['requestDate'] = date('Y-m-d H:i:s');
         $financeValidation = $this->checkIfIsvalidToFinance($request['email']);
         $request['interestRateType'] = 1;
@@ -40,7 +39,7 @@ class FinancierController extends Controller
         $creditSimulate->fill($creditSimulateValues);
         $creditSimulate->save();
         $response = ['isValidToFinance' => boolval($creditSimulateValues['validToFinance'])];
-        if(!$creditSimulateValues['validToFinance'])
+        if (!$creditSimulateValues['validToFinance'])
             $response['causalRejection'] = $creditSimulateValues['causalRejection'];
         $response['maximumPaymentTerm'] = $creditSimulateValues['maximunPaymentTerm'];
         $response['interestRate'] = $creditSimulateValues['interestRate'];
@@ -65,7 +64,5 @@ class FinancierController extends Controller
             'guaranteeRate'    => $financeData['guaranteeRate'],
             'causalRejection'  => $financeData['causalRejection']
         ];
-
-
     }
 }
