@@ -16,7 +16,7 @@ class CreateFNCREDITSIMULATETable extends Migration
         Schema::create('FN_CREDITSIMULATE', function (Blueprint $table) {
             $table->id('FN_NUMERO');
             $table->string('financialCode');
-            $table->decimal('totalAmount');
+            $table->decimal('totalAmount', 20);
             $table->decimal('shippingAmount');
             $table->string('currency');
             $table->integer('documentType');

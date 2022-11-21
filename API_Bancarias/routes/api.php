@@ -19,13 +19,6 @@ use Illuminate\Support\Facades\Route;
 Route::post('credit/authenticate', [UserController::class, 'MSCusBilCredAuthenticateEF'])->name('authenticate');
 Route::group(['middleware' => 'ApiAuthMiddleware'], function () {
     Route::post('createClient', [UserController::class, 'createClient'])->name('createClient');
-
-
 });
-<<<<<<< HEAD
 Route::post('credit/inscription', [CreditInscriptionController::class, 'MSCusBilCredInscriptionEF'])->name('inscription');
-=======
-
 Route::post('credit/simulate', [FinancierController::class, 'MSCusBilCredSimulateEF'])->name('simulate');
-
->>>>>>> dedc25bc91ba75bd867b02dedf0158af35e55b10
