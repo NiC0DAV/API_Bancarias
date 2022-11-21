@@ -23,6 +23,7 @@ class User extends Authenticatable
         'clientId',
         'clientSecret',
     ];
+    protected $dateFormat = 'Y-m-d\TH:i:s';
 
     /**
      * The attributes that should be hidden for serialization.

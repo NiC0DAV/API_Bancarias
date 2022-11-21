@@ -9,6 +9,7 @@ class FN_CREDITINSCRIPTION extends Model
 {
     use HasFactory;
     protected $table = 'FN_CREDITINSCRIPTIONS';
+    protected $dateFormat = 'Y-m-d\TH:i:s';
 
     protected $fillable = [
         'channelCode',

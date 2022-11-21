@@ -9,6 +9,7 @@ class CreditSimulate extends Model
 {
     use HasFactory;
     protected $table = 'FN_CREDITSIMULATE';
+    protected $dateFormat = 'Y-m-d\TH:i:s';
 
     protected $fillable = [
         'financialCode',
