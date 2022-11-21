@@ -3,7 +3,7 @@
 @section('content')
     <div class="container" >
         <div class="text-center p-4">
-            <h1 class="p-4 mt-2">Terminos y condiciones</h1>
+            <h1 class="p-4 mt-2">Términos y Condiciones</h1>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore ipsa, sit, soluta pariatur ullam magnam impedit consectetur alias et harum perspiciatis! Sequi nisi fugiat illum eveniet, facere debitis magni hic.
             Hic ea labore quaerat alias, eveniet iusto culpa! Neque veniam laboriosam sunt recusandae perferendis, rem, dignissimos placeat, quo minima nemo sint fugit natus. Reprehenderit, accusantium? Quam commodi quod vel veritatis?
             Eius repellat omnis iusto consequuntur et quasi, molestiae ipsam. Nesciunt cum architecto, asperiores quis facilis exercitationem! Labore ipsum fugit voluptatem ipsa qui quaerat voluptatibus, aliquid, molestias voluptates accusamus placeat distinctio!

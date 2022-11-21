@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MSCusBilCredSimulateEFRequest;
 use App\Models\CreditSimulate;
 use App\Models\StatusFinanceForEmail;
+use GuzzleHttp\Psr7\Request;
 
 class FinancierController extends Controller
 {

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FinancierController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,5 +16,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::post('/', HomeController::class)->name('home');
+Route::get('/', HomeController::class)->name('home');
 Route::get('/finance-conditions', HomeController::class)->name('fn-conditions');
+Route::get('/finance', [FinancierController::class, 'financeClient'])->name('finance');
