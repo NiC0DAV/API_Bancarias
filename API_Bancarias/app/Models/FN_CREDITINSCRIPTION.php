@@ -28,5 +28,7 @@ class FN_CREDITINSCRIPTION extends Model
         'mobileNumberCountryCode',
         'redirectionUrl',
         'inscriptionId',
+        'cuotas',
+        'status'
     ];
 }

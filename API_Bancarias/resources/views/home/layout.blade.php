@@ -69,7 +69,7 @@
             <!-- Section: Links -->
             <section class="">
             <!--Grid row-->
-            <div class="row">
+            {{-- <div class="row">
                 <!--Grid column-->
                 <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
                 <h5 class="text-uppercase">Links</h5>
@@ -153,7 +153,7 @@
                 </ul>
                 </div>
                 <!--Grid column-->
-            </div>
+            </div> --}}
             <!--Grid row-->
             </section>
             <!-- Section: Links -->

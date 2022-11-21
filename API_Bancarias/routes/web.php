@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\FinanceClientController;
-use App\Http\Controllers\FinancierController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,4 +18,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
 Route::get('/finance-conditions', HomeController::class)->name('fn-conditions');
-Route::get('/finance', [FinanceClientController::class, 'financeClient'])->name('finance');
+Route::get('/finance', [FinanceClientController::class, 'financeService'])->name('finance');
+Route::patch('/finance/update/{dataClient}', [FinanceClientController::class, 'financeServiceUpdate'])->name('financeUpdate');
