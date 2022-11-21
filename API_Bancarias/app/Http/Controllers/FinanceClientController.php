@@ -79,9 +79,13 @@ class FinanceClientController extends Controller
 
     public function returnToStore(FN_CREDITINSCRIPTION $dataClient)
     {
+        if (empty($dataClient->status)) {
+            $dataClient->status = 'ABORTED';
+        }
         $redirecUrl = $dataClient->redirectionUrl;
         $redirecUrl .= '?orderId=' . $dataClient->orderId;
         $redirecUrl .= '&statusCode=' . $dataClient->status;
+
         return redirect($redirecUrl);
     }
 }
