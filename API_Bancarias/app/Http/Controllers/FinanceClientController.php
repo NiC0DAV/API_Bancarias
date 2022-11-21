@@ -41,7 +41,7 @@ class FinanceClientController extends Controller
             'dues' => 'required|numeric',
         ]);
 
-        $dues = $request->input('cuotas');
+        $dues = $request->input('dues');
         $checkStatus = $this->checkIfIsvalidToFinance($dataClient->email);
         if (boolval($checkStatus['validToFinance'])) {
             $status = 'APPROVED';
@@ -53,6 +53,10 @@ class FinanceClientController extends Controller
         $dataClient->cuotas = $dues;
         $dataClient->status = $status;
         $dataClient->update();
+
+        $response = view('financeClient.resultFinance')->with('dataClient', $dataClient);
+
+        return $response;
     }
 
 
@@ -76,7 +80,7 @@ class FinanceClientController extends Controller
     public function returnToStore(FN_CREDITINSCRIPTION $dataClient)
     {
         $redirecUrl = $dataClient->redirectionUrl;
-        $redirecUrl .= '?orderId='. $dataClient->orderId;
+        $redirecUrl .= '?orderId=' . $dataClient->orderId;
         $redirecUrl .= '&statusCode=ABORTED';
         return redirect($redirecUrl);
     }

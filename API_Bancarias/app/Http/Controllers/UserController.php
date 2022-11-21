@@ -98,8 +98,8 @@ class UserController extends Controller
                     $status = 200;
                 } else {
                     $response = array(
-                        'status' => 'Error',
-                        'message' => 'There was an error while the authentication was in progress.',
+                        'errorCode' => '404',
+                        'errorDescription' => 'There was an error while the authentication was in progress.',
                         'data' => ''
                     );
                     $status = 404;
@@ -107,7 +107,7 @@ class UserController extends Controller
             }
         } else {
             $response = array(
-                'status' => 'Error',
+                'errorCode' => '404',
                 'message' => 'The client does not exist on the database.',
                 'data' => ''
             );
