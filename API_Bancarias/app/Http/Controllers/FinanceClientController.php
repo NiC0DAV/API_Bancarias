@@ -37,14 +37,9 @@ class FinanceClientController extends Controller
 
     public function financeServiceUpdate(FN_CREDITINSCRIPTION $dataClient, Request $request)
     {
-        $validate = Validator::make($request->all(), [
-            'dues' => 'required'
+        $request->validate([
+            'dues' => 'required|numeric',
         ]);
-
-        if ($validate->fails()) {
-            echo "No hay cuotas";
-            exit();
-        }
 
         $dues = $request->input('cuotas');
         $checkStatus = $this->checkIfIsvalidToFinance($dataClient->email);
@@ -76,5 +71,13 @@ class FinanceClientController extends Controller
             'guaranteeRate'    => $financeData['guaranteeRate'],
             'causalRejection'  => $financeData['causalRejection']
         ];
+    }
+
+    public function returnToStore(FN_CREDITINSCRIPTION $dataClient)
+    {
+        $redirecUrl = $dataClient->redirectionUrl;
+        $redirecUrl .= '?orderId='. $dataClient->orderId;
+        $redirecUrl .= '&statusCode=ABORTED';
+        return redirect($redirecUrl);
     }
 }

@@ -20,3 +20,4 @@ Route::get('/', HomeController::class)->name('home');
 Route::get('/finance-conditions', HomeController::class)->name('fn-conditions');
 Route::get('/finance', [FinanceClientController::class, 'financeService'])->name('finance');
 Route::patch('/finance/update/{dataClient}', [FinanceClientController::class, 'financeServiceUpdate'])->name('financeUpdate');
+Route::get('/returnToStore/{dataClient}', [FinanceClientController::class, 'returnToStore'])->name('returnToStore');

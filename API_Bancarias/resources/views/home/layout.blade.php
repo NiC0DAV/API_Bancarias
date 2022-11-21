@@ -165,5 +165,7 @@
     </footer>
     <!-- Footer -->
 
+    <script src=" {{ asset('bootstrap/js/bootstrap.js') }}"></script>
+
 </body>
 </html>

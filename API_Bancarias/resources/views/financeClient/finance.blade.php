@@ -1,6 +1,7 @@
 @extends('home.layout')
 
 @section('content')
+@include('financeClient.modalCancel', ['dataClient' => $dataClient])
     <div class="container" >
         <div class="p-4">
             <h3 class="">Bienvenido {{ $dataClient['firstName']}} {{ $dataClient['lastName']}} </h3>
@@ -22,7 +23,7 @@
                             <label for="" class="form-label">Tipo de documento</label>
                             <select class="form-select" name="docType" aria-label="Default select example">
                             @foreach([1 => 'Cedula de Ciudadania', 2 => 'Cedula Extranjeria', 3 => 'Pasaporte'] as $key => $docType)
-                                <option disabled value="{{ $key }}" {{ ($key == $dataClient->clientDocType) ? 'selected' : '' }}>{{ $docType }}</option>                                         
+                                <option disabled value="{{ $key }}" {{ ($key == $dataClient->clientDocType) ? 'selected' : '' }}>{{ $docType }}</option>
                             @endforeach
                             </select>
                         </div>
@@ -41,31 +42,35 @@
 
                         <div class="col mb-3">
                             <label for="" class="form-label">Total a Financiar</label>
-                            <input type="text" name="totalValue" value="{{ $newTotal }} " name="" id="" class="form-control" placeholder=""  readonly>                        
+                            <input type="text" name="totalValue" value="{{ $newTotal }} " name="" id="" class="form-control" placeholder=""  readonly>
                         </div>
 
                 </div>
                 <div class="row g-4">
                     <div class="col mb-3">
                         <label for="" class="form-label">Tasa de Interes</label>
-                        <input type="text" name="interests"  value="15%" name="" id="" class="form-control" placeholder="" readonly>                        
+                        <input type="text" name="interests"  value="15%" name="" id="" class="form-control" placeholder="" readonly>
                     </div>
                     <div class="col mb-3">
                         <label for="" class="form-label">Cuotas</label>
-                        <select name="dues" class="form-select" aria-label="Default select example">
+                        <select name="dues" class="form-select" required aria-describedby="duesError">
                             <option disabled selected>Seleccione la cantidad de cuotas</option>
                             @for ($i=0; $i<36; $i++)
                                 <option value="{{ $i+1 }}">{{$i+1}}</option>
                             @endfor
                         </select>
+                        @error('dues')
+                            <small id="duesError"  class="form-text text-danger"><strong>{{$message}}</strong></small>
+                        @enderror
                     </div>
                 </div>
                 <div class="text-center">
-                    <a href="/"  class="btn btn-secondary btn-lg">Cancelar Financiamiento</a>
+                    <a data-bs-toggle="modal" data-bs-target="#staticBackdrop"  class="btn btn-secondary btn-lg">Cancelar Financiamiento</a>
                     <button class="btn btn-success btn-lg" type="submit">Financiar Compra</button>
                 </div>
             </form>
-        </div>        
+        </div>
     </div>
+
 @endsection
 

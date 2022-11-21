@@ -14,7 +14,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['MSCusBilCredAuthenticateEF', 'createClient']]);
+        //$this->middleware('auth:api', ['except' => ['MSCusBilCredAuthenticateEF', 'createClient']]);
     }
 
     public function createClient(Request $request)
