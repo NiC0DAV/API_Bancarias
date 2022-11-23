@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CreditInscriptionController;
+use App\Http\Controllers\FinanceValidateController;
 use App\Http\Controllers\FinancierController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('createClient', [UserController::class, 'createClient'])->name('createClient');
+Route::post('credit/validate', [FinanceValidateController::class, 'MSCusBilCredValidateEF'])->name('validate');
 
 Route::post('credit/authenticate', [UserController::class, 'MSCusBilCredAuthenticateEF'])->name('authenticate');
 Route::group(['middleware' => 'ApiAuthMiddleware'], function () {
