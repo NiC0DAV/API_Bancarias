@@ -38,10 +38,10 @@ class FinanceValidateController extends Controller
                     $newTotal = $consultOrderId['totalAmount'];
                 }
 
-                $response = array(
-                    'statusCode' => '200',
+                $response = array(                    
                     'code' => 200,
-                    'message' => 'Successful Response',
+                    'statusCode' => $consultOrderId->status,
+                    // 'message' => 'Successful Response',
                     'amount'  => $newTotal,
                     'paymentConfirmationDate'   => $consultOrderId->created_at,
                     'financialCode' =>  $consultOrderId->financialCode,
