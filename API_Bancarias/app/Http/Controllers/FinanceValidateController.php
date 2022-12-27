@@ -11,7 +11,6 @@ class FinanceValidateController extends Controller
 {
     function MSCusBilCredValidateEF(Request $request)
     {
-
         $validate = Validator::make($request->all(), [
             'orderId' => 'required'
         ]);
@@ -19,6 +18,7 @@ class FinanceValidateController extends Controller
         if ($validate->fails()) {
 
             $response = array('status' => '400');
+            $statusCode = '400';
         } else {
 
             $orderId =  $request->input('orderId');
@@ -26,7 +26,6 @@ class FinanceValidateController extends Controller
             $consultOrderId =  FN_CREDITINSCRIPTION::where([
                 'orderId' => $orderId
             ])->latest()->first();
-
             if (is_object($consultOrderId)) {
 
                 $dataClient =  CreditSimulate::where('documentNumber', $consultOrderId['clientDocNumber'])->latest()->first();
@@ -38,10 +37,9 @@ class FinanceValidateController extends Controller
                     $newTotal = $consultOrderId['totalAmount'];
                 }
 
+                $statusCode = '200';
                 $response = array(                    
-                    'code' => 200,
-                    // 'statusCode' => $consultOrderId->status,
-                    // 'message' => 'Successful Response',
+                    'statusCode' => $consultOrderId->status,
                     'amount'  => $newTotal,
                     'paymentConfirmationDate'   => $consultOrderId->created_at,
                     'financialCode' =>  $consultOrderId->financialCode,
@@ -50,6 +48,7 @@ class FinanceValidateController extends Controller
                 );
             } else {
 
+                $statusCode = '400';
                 $response = array(
                     'statusCode' => '404',
                     'code' => 404,
@@ -59,6 +58,6 @@ class FinanceValidateController extends Controller
             }
         }
 
-        return response()->json($response, $response['statusCode']);
+        return response()->json($response, $statusCode);
     }
 }
