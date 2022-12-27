@@ -92,8 +92,8 @@ class UserController extends Controller
                 $signUp = $jwtAuth->loginClient($paramsArr['clientId'], $paramsArr['clientSecret']);
                 if (!empty($signUp) && $signUp != '') {
                     $response = array(
-                        'access_token' => $signUp,
-                        'expiration_time' => '5 minutes',
+                        'accessToken' => $signUp,
+                        'expirationTime' => 5,
                     );
                     $status = 200;
                 } else {
