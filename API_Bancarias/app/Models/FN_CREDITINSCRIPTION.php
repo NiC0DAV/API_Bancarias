@@ -27,6 +27,7 @@ class FN_CREDITINSCRIPTION extends Model
         'email',
         'mobileNumber',
         'mobileNumberCountryCode',
+        'causalRejection',
         'redirectionUrl',
         'inscriptionId',
         'cuotas',

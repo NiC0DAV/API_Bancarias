@@ -26,12 +26,12 @@ class ApiAuthMiddleware
         } else {
 
             $data = array(
-                'code' => 404,
-                'status' => 'Error',
-                'message' => $checkToken
+                'errorCode' => 403,
+                'errorDescription' => $checkToken,
+                'traceId' => 'L102'
             );
 
-            return response()->json($data, $data['code']);
+            return response()->json($data, $data['errorCode']);
         }
     }
 }

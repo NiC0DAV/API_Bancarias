@@ -38,14 +38,29 @@ class FinanceValidateController extends Controller
                 }
 
                 $statusCode = '200';
-                $response = array(                    
-                    'statusCode' => $consultOrderId->status,
-                    'amount'  => $newTotal,
-                    'paymentConfirmationDate'   => $consultOrderId->created_at,
-                    'financialCode' =>  $consultOrderId->financialCode,
-                    'channelCode'   => $consultOrderId->chanelCode,
-                    'financialOrderId' => $consultOrderId->orderId
-                );
+
+                if($consultOrderId->status == 'APPROVED'){
+                    $response = array(                    
+                        'statusCode' => $consultOrderId->status,
+                        'amount'  => $newTotal,
+                        'paymentConfirmationDate'   => $consultOrderId->created_at,
+                        'financialCode' =>  $consultOrderId->financialCode,
+                        'channelCode'   => $consultOrderId->channelCode,
+                        'financialOrderId' => $consultOrderId->orderId
+                    );
+                }elseif($consultOrderId->status == 'DECLINED' || $consultOrderId->status == 'ABORTED' || $consultOrderId->status == 'ABANDONED'){
+                    $response = array(                    
+                        'statusCode' => $consultOrderId->status,
+                        'causalRejection' => $consultOrderId->causalRejection,
+                        'amount'  => $newTotal,
+                        'paymentConfirmationDate'   => $consultOrderId->created_at,
+                        'financialCode' =>  $consultOrderId->financialCode,
+                        'channelCode'   => $consultOrderId->channelCode,
+                        'financialOrderId' => $consultOrderId->orderId
+                    );
+                }
+
+
             } else {
 
                 $statusCode = '400';

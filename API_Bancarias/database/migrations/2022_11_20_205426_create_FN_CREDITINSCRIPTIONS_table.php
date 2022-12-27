@@ -30,6 +30,7 @@ class CreateFNCREDITINSCRIPTIONSTable extends Migration
             $table->string('email');
             $table->string('mobileNumber');
             $table->string('mobileNumberCountryCode');
+            $table->string('causalRejection');
             $table->string('redirectionUrl');
             $table->string('inscriptionId');
             $table->string('cuotas')->nullable();

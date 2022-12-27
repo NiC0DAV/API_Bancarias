@@ -45,13 +45,16 @@ class FinanceClientController extends Controller
         $checkStatus = $this->checkIfIsvalidToFinance($dataClient->email);
         if (boolval($checkStatus['validToFinance'])) {
             $status = 'APPROVED';
+            $causalRejection = '';
         } else {
             $status = 'DECLINED';
+            $causalRejection = 'The client is not valid to finance.';
         }
         // $status = ['APPROVED', 'PENDING', 'REJECTED', 'ABANDONED', 'DECLINED'];
         // $randStatus = $status[mt_rand(0, count($status) - 1)];
         $dataClient->cuotas = $dues;
         $dataClient->status = $status;
+        $dataClient->causalRejection = $causalRejection;
         $dataClient->update();
 
         $response = view('financeClient.resultFinance')->with('dataClient', $dataClient);
@@ -81,6 +84,7 @@ class FinanceClientController extends Controller
     {
         if (empty($dataClient->status)) {
             $dataClient->status = 'ABORTED';
+            $dataClient->causalRejection = 'The financial process has been canceled.';
         }
 
         $dataClient->update();

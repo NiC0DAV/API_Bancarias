@@ -83,11 +83,11 @@ class UserController extends Controller
 
             if ($validate->fails()) {
                 $response = array(
-                    'status' => 'Invalid Client',
-                    'message' => 'The client could not be identified or the entered data is invalid',
-                    'data' => $validate->errors()
+                    'errorCode' => '401',
+                    'errorDescription' => 'The client could not be identified or the entered data is invalid',
+                    'traceId' => 'L101'
                 );
-                $status = 404;
+                $status = $response['errorCode'];
             } else {
                 $signUp = $jwtAuth->loginClient($paramsArr['clientId'], $paramsArr['clientSecret']);
                 if (!empty($signUp) && $signUp != '') {
@@ -98,20 +98,20 @@ class UserController extends Controller
                     $status = 200;
                 } else {
                     $response = array(
-                        'errorCode' => '404',
+                        'errorCode' => '500',
                         'errorDescription' => 'There was an error while the authentication was in progress.',
-                        'data' => ''
+                        'traceId' => 'L501'
                     );
-                    $status = 404;
+                    $status = $response['errorCode'];
                 }
             }
         } else {
             $response = array(
-                'errorCode' => '404',
+                'errorCode' => '403',
                 'message' => 'The client does not exist on the database.',
-                'data' => ''
+                'traceId' => 'L303'
             );
-            $status = 404;
+            $status = $response['errorCode'];
         }
 
         return response()->json($response, $status);
