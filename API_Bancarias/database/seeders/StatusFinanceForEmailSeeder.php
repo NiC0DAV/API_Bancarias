@@ -15,28 +15,28 @@ class StatusFinanceForEmailSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('fn_status_finance_for_email')->insert([
+        DB::table('FN_STATUS_FINANCE_FOR_EMAIL')->insert([
             'email' => 'approved@claro.com.co',
             'response_status' => true,
             'guaranteeRate' => 0,
             'causalRejection' => '',
         ]);
 
-        DB::table('fn_status_finance_for_email')->insert([
+        DB::table('FN_STATUS_FINANCE_FOR_EMAIL')->insert([
             'email' => 'declined@claro.com.co',
             'response_status' => false,
             'guaranteeRate' => 0,
             'causalRejection' => 'The client is not valid for Finance',
         ]);
 
-        DB::table('fn_status_finance_for_email')->insert([
+        DB::table('FN_STATUS_FINANCE_FOR_EMAIL')->insert([
             'email' => 'accept@claro.com.co',
             'response_status' => true,
             'guaranteeRate' => 20.0,
             'causalRejection' => '',
         ]);
 
-        DB::table('fn_status_finance_for_email')->insert([
+        DB::table('FN_STATUS_FINANCE_FOR_EMAIL')->insert([
             'email' => 'guarantee@claro.com.co',
             'response_status' => true,
             'guaranteeRate' => 50.0,
