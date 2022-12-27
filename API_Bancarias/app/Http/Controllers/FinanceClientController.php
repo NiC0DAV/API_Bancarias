@@ -82,6 +82,9 @@ class FinanceClientController extends Controller
         if (empty($dataClient->status)) {
             $dataClient->status = 'ABORTED';
         }
+
+        $dataClient->update();
+
         $redirecUrl = $dataClient->redirectionUrl;
         $redirecUrl .= '?orderId=' . $dataClient->orderId;
         $redirecUrl .= '&statusCode=' . $dataClient->status;
