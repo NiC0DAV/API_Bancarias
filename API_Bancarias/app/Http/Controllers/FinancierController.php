@@ -43,10 +43,10 @@ class FinancierController extends Controller
         $response = ['isValidToFinance' => boolval($creditSimulateValues['validToFinance'])];
         if (!$creditSimulateValues['validToFinance'])
             $response['causalRejection'] = $creditSimulateValues['causalRejection'];
-        $response['maximumPaymentTerm'] = $creditSimulateValues['maximunPaymentTerm'];
-        $response['interestRate'] = $creditSimulateValues['interestRate'];
-        $response['interestRateType'] = $creditSimulateValues['interestRateType'];
-        $response['guaranteeRate'] =  $creditSimulateValues['guaranteeRate'];
+        $response['financingSimulationInfo']['maximumPaymentTerm'] = $creditSimulateValues['maximunPaymentTerm'];
+        $response['financingSimulationInfo']['interestRate'] = $creditSimulateValues['interestRate'];
+        $response['financingSimulationInfo']['interestRateType'] = $creditSimulateValues['interestRateType'];
+        $response['financingSimulationInfo']['guaranteeRate'] =  $creditSimulateValues['guaranteeRate'];
         $response['conditionsUrl'] =  route('fn-conditions');
         return response()->json($response);
     }
