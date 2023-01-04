@@ -34,6 +34,8 @@ class FinancierController extends Controller
         $request['interestRateType'] = 1;
         $request['interestRate'] = 15.0;
         $request['maximunPaymentTerm'] = 36;
+        $monthlyPaymentCalc = ($request['totalAmount'] + $request['shippingAmount'] + $request['totalTaxesAmount']) / $request['maximunPaymentTerm'];
+
         $creditSimulateValues = array_merge($request->all(), $financeValidation);
         $creditSimulateValues = array_merge($creditSimulateValues, $creditSimulateValues['client']);
         unset($request, $financeValidation, $creditSimulateValues['client']);
@@ -43,8 +45,9 @@ class FinancierController extends Controller
         $response = ['isValidToFinance' => boolval($creditSimulateValues['validToFinance'])];
 
         $response['causalRejection'] = !$creditSimulateValues['validToFinance'] ? $creditSimulateValues['causalRejection'] : '';
+        $response['financingSimulationInfo']['monthlyPayment'] = $monthlyPaymentCalc ? $monthlyPaymentCalc : '';
         $response['financingSimulationInfo']['maximumPaymentTerm'] = $creditSimulateValues['maximunPaymentTerm'];
-        $response['financingSimulationInfo']['interestRate'] = $creditSimulateValues['interestRate'];
+        $response['financingSimulationInfo']['interestRate'] = $creditSimulateValues['interestRa;te'];
         $response['financingSimulationInfo']['interestRateType'] = $creditSimulateValues['interestRateType'];
         $response['financingSimulationInfo']['guaranteeRate'] =  $creditSimulateValues['guaranteeRate'];
         $response['conditionsUrl'] =  route('fn-conditions');
