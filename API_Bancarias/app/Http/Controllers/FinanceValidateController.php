@@ -16,53 +16,63 @@ class FinanceValidateController extends Controller
         ]);
 
         if ($validate->fails()) {
-
             $response = array('status' => '400');
             $statusCode = '400';
         } else {
 
-            $orderId =  $request->input('orderId');
+            try {
+                    $orderId =  $request->input('orderId');
 
-            $consultOrderId =  FN_CREDITINSCRIPTION::where([
-                'orderId' => $orderId
-            ])->latest()->first();
-            if (is_object($consultOrderId)) {
+                    $consultOrderId =  FN_CREDITINSCRIPTION::where([
+                        'orderId' => $orderId
+                    ])->latest()->first();
 
-                $dataClient =  CreditSimulate::where('documentNumber', $consultOrderId['clientDocNumber'])->latest()->first();
-                if ($dataClient['guaranteeRate'] > 0) {
-                    $interestPercentage = ($dataClient['guaranteeRate'] / 100);
-                    $calcGuarranteeRate = $consultOrderId['totalAmount'] * $interestPercentage;
-                    $newTotal = $consultOrderId['totalAmount'] - $calcGuarranteeRate;
-                } else {
-                    $newTotal = $consultOrderId['totalAmount'];
-                }
+                    if (is_object($consultOrderId)) {
 
-                $statusCode = '200';
-
-                if($consultOrderId->status == 'APPROVED'){
-                    $response = array(                    
-                        'statusCode' => $consultOrderId->status,
-                        'amount'  => $newTotal,
-                        'paymentConfirmationDate'   => $consultOrderId->created_at,
-                        'financialCode' =>  $consultOrderId->financialCode,
-                        'channelCode'   => $consultOrderId->channelCode,
-                        'financialOrderId' => $consultOrderId->orderId
-                    );
-                }elseif($consultOrderId->status == 'DECLINED' || $consultOrderId->status == 'ABORTED' || $consultOrderId->status == 'ABANDONED'){
-                    $response = array(                    
-                        'statusCode' => $consultOrderId->status,
-                        'causalRejection' => $consultOrderId->causalRejection,
-                        'amount'  => $newTotal,
-                        'paymentConfirmationDate'   => $consultOrderId->created_at,
-                        'financialCode' =>  $consultOrderId->financialCode,
-                        'channelCode'   => $consultOrderId->channelCode,
-                        'financialOrderId' => $consultOrderId->orderId
-                    );
-                }
-
-
-            } else {
-
+                        $dataClient =  CreditSimulate::where('documentNumber', $consultOrderId['clientDocNumber'])->latest()->first();
+                        if ($dataClient['guaranteeRate'] > 0) {
+                            $interestPercentage = ($dataClient['guaranteeRate'] / 100);
+                            $calcGuarranteeRate = $consultOrderId['totalAmount'] * $interestPercentage;
+                            $newTotal = $consultOrderId['totalAmount'] - $calcGuarranteeRate;
+                        } else {
+                            $newTotal = $consultOrderId['totalAmount'];
+                        }
+        
+                        $statusCode = '200';
+        
+                        if($consultOrderId->status == 'APPROVED'){
+                            $response = array(                    
+                                'statusCode' => $consultOrderId->status,
+                                'amount'  => $newTotal,
+                                'paymentConfirmationDate'   => $consultOrderId->created_at,
+                                'financialCode' =>  $consultOrderId->financialCode,
+                                'channelCode'   => $consultOrderId->channelCode,
+                                'financialOrderId' => $consultOrderId->orderId
+                            );
+                        }elseif($consultOrderId->status == 'DECLINED' || $consultOrderId->status == 'ABORTED' || $consultOrderId->status == 'ABANDONED'){
+                            $response = array(                    
+                                'statusCode' => $consultOrderId->status,
+                                'causalRejection' => $consultOrderId->causalRejection,
+                                'amount'  => $newTotal,
+                                'paymentConfirmationDate'   => $consultOrderId->created_at,
+                                'financialCode' =>  $consultOrderId->financialCode,
+                                'channelCode'   => $consultOrderId->channelCode,
+                                'financialOrderId' => $consultOrderId->orderId
+                            );
+                        }
+        
+        
+                    } else {
+        
+                        $statusCode = '400';
+                        $response = array(
+                            'statusCode' => '404',
+                            'code' => 404,
+                            'message' => 'OrderId NotFound',
+        
+                        );
+                    }
+            } catch (\Throwable $th) {
                 $statusCode = '400';
                 $response = array(
                     'statusCode' => '404',
