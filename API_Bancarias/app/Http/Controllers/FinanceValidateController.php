@@ -37,11 +37,11 @@ class FinanceValidateController extends Controller
                         } else {
                             $newTotal = $consultOrderId['totalAmount'];
                         }
-        
+
                         $statusCode = '200';
-        
+
                         if($consultOrderId->status == 'APPROVED'){
-                            $response = array(                    
+                            $response = array(
                                 'statusCode' => $consultOrderId->status,
                                 'amount'  => $newTotal,
                                 'paymentConfirmationDate'   => $consultOrderId->created_at,
@@ -50,7 +50,7 @@ class FinanceValidateController extends Controller
                                 'financialOrderId' => $consultOrderId->orderId
                             );
                         }elseif($consultOrderId->status == 'DECLINED' || $consultOrderId->status == 'ABORTED' || $consultOrderId->status == 'ABANDONED'){
-                            $response = array(                    
+                            $response = array(
                                 'statusCode' => $consultOrderId->status,
                                 'causalRejection' => $consultOrderId->causalRejection,
                                 'amount'  => $newTotal,
@@ -59,17 +59,27 @@ class FinanceValidateController extends Controller
                                 'channelCode'   => $consultOrderId->channelCode,
                                 'financialOrderId' => $consultOrderId->orderId
                             );
+                        }else{
+                            $response = array(
+                                'statusCode' => 'PENDING',
+                                'causalRejection' => $consultOrderId->causalRejection,
+                                'amount'  => $newTotal,
+                                'paymentConfirmationDate'   => $consultOrderId->created_at,
+                                'financialCode' =>  $consultOrderId->financialCode,
+                                'channelCode'   => $consultOrderId->channelCode,
+                                'financialOrderId' => $consultOrderId->orderId
+                            );
                         }
-        
-        
+
+
                     } else {
-        
+
                         $statusCode = '400';
                         $response = array(
                             'statusCode' => '404',
                             'code' => 404,
                             'message' => 'OrderId NotFound',
-        
+
                         );
                     }
             } catch (\Throwable $th) {
