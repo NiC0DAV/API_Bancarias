@@ -47,7 +47,7 @@ class FinancierController extends Controller
         $response['causalRejection'] = !$creditSimulateValues['validToFinance'] ? $creditSimulateValues['causalRejection'] : '';
         $response['financingSimulationInfo']['monthlyPayment'] = $monthlyPaymentCalc ? $monthlyPaymentCalc : '';
         $response['financingSimulationInfo']['maximumPaymentTerm'] = $creditSimulateValues['maximunPaymentTerm'];
-        $response['financingSimulationInfo']['interestRate'] = $creditSimulateValues['interestRa;te'];
+        $response['financingSimulationInfo']['interestRate'] = $creditSimulateValues['interestRate'];
         $response['financingSimulationInfo']['interestRateType'] = $creditSimulateValues['interestRateType'];
         $response['financingSimulationInfo']['guaranteeRate'] =  $creditSimulateValues['guaranteeRate'];
         $response['conditionsUrl'] =  route('fn-conditions');
