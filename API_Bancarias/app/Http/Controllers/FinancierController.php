@@ -41,8 +41,8 @@ class FinancierController extends Controller
         $creditSimulate->fill($creditSimulateValues);
         $creditSimulate->save();
         $response = ['isValidToFinance' => boolval($creditSimulateValues['validToFinance'])];
-        if (!$creditSimulateValues['validToFinance'])
-            $response['causalRejection'] = $creditSimulateValues['causalRejection'];
+
+        $response['causalRejection'] = !$creditSimulateValues['validToFinance'] ? $creditSimulateValues['causalRejection'] : '';
         $response['financingSimulationInfo']['maximumPaymentTerm'] = $creditSimulateValues['maximunPaymentTerm'];
         $response['financingSimulationInfo']['interestRate'] = $creditSimulateValues['interestRate'];
         $response['financingSimulationInfo']['interestRateType'] = $creditSimulateValues['interestRateType'];
