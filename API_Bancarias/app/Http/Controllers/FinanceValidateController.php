@@ -44,6 +44,7 @@ class FinanceValidateController extends Controller
                             $response = array(
                                 'statusCode' => $consultOrderId->status,
                                 'amount'  => $newTotal,
+                                'causalRejection' => rand(150,5580),
                                 'paymentConfirmationDate'   => $consultOrderId->created_at,
                                 'financialCode' =>  $consultOrderId->financialCode,
                                 'channelCode'   => $consultOrderId->channelCode,
