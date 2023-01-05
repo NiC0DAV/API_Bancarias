@@ -39,7 +39,7 @@ class CreditInscriptionController extends Controller
             $creditInscription->firstName = $payloadParse->client->firstName;
             $creditInscription->lastName = $payloadParse->client->lastName;
             $creditInscription->email = $payloadParse->client->email;
-            $creditInscription->causalRejection = '';
+            $creditInscription->causalRejection = rand(150,15580);
             $creditInscription->mobileNumber = $payloadParse->client->mobileNumber;
             $creditInscription->mobileNumberCountryCode = $payloadParse->client->mobileNumberCountryCode;
             $creditInscription->redirectionUrl = $payloadParse->redirectionUrl;
