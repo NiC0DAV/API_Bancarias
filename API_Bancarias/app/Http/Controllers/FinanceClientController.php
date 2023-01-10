@@ -45,7 +45,7 @@ class FinanceClientController extends Controller
         $checkStatus = $this->checkIfIsvalidToFinance($dataClient->email);
         if (boolval($checkStatus['validToFinance'])) {
             $status = 'APPROVED';
-            $causalRejection = '';
+            $causalRejection = $this->unique_code(9);
         } else {
             $status = 'DECLINED';
             $causalRejection = 'The client is not valid to finance.';
@@ -94,5 +94,9 @@ class FinanceClientController extends Controller
         $redirecUrl .= '&statusCode=' . $dataClient->status;
 
         return redirect($redirecUrl);
+    }
+
+    function unique_code($limit){
+        return substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, $limit);
     }
 }

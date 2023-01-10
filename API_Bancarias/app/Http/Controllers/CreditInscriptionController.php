@@ -24,7 +24,7 @@ class CreditInscriptionController extends Controller
 
         if ($checkClient->validToFinance == 1) {
             $inscriptionId = base64_encode($unixTime . $docNum);
-            $newCausalRejection = $checkClient->causalRejection !== '' ? $checkClient->causalRejection : $this->unique_code(9);
+
             $creditInscription = new FN_CREDITINSCRIPTION();
             $creditInscription->channelCode = $payloadParse->channelCode;
             $creditInscription->financialCode = $payloadParse->financialCode;
@@ -39,7 +39,7 @@ class CreditInscriptionController extends Controller
             $creditInscription->firstName = $payloadParse->client->firstName;
             $creditInscription->lastName = $payloadParse->client->lastName;
             $creditInscription->email = $payloadParse->client->email;
-            $creditInscription->causalRejection = $newCausalRejection;
+            $creditInscription->causalRejection = '';
             $creditInscription->mobileNumber = $payloadParse->client->mobileNumber;
             $creditInscription->mobileNumberCountryCode = $payloadParse->client->mobileNumberCountryCode;
             $creditInscription->redirectionUrl = $payloadParse->redirectionUrl;
@@ -50,9 +50,5 @@ class CreditInscriptionController extends Controller
         return [
             'inscriptionId'   => $inscriptionId,
         ];
-    }
-
-    function unique_code($limit){
-        return substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, $limit);
     }
 }
