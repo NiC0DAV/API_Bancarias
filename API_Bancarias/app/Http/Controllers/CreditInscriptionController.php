@@ -45,10 +45,16 @@ class CreditInscriptionController extends Controller
             $creditInscription->redirectionUrl = $payloadParse->redirectionUrl;
             $creditInscription->inscriptionId = $inscriptionId;
             $creditInscription->save();
+
+            return [
+                'inscriptionId'   => $inscriptionId,
+            ];
+        }else{
+            return [
+                'error'   => 'No es posible financiar el cliente.',
+            ];
         }
 
-        return [
-            'inscriptionId'   => $inscriptionId,
-        ];
+
     }
 }
