@@ -84,7 +84,7 @@ class UserController extends Controller
             if ($validate->fails()) {
                 $response = array(
                     'errorCode' => '401',
-                    'errorDescription' => 'The client could not be identified or the entered data is invalid',
+                    'errorDescription' => 'No se pudo identificar al cliente o los datos ingresados no son válidos',
                     'traceId' => 'L101'
                 );
                 $status = $response['errorCode'];
@@ -99,7 +99,7 @@ class UserController extends Controller
                 } else {
                     $response = array(
                         'errorCode' => '500',
-                        'errorDescription' => 'There was an error while the authentication was in progress.',
+                        'errorDescription' => 'Hubo un error mientras la autenticación estaba en curso.',
                         'traceId' => 'L501'
                     );
                     $status = $response['errorCode'];
@@ -107,8 +107,8 @@ class UserController extends Controller
             }
         } else {
             $response = array(
-                'errorCode' => '403',
-                'message' => 'The client does not exist on the database.',
+                'errorCode' => '401',
+                'message' => 'Datos para autenticación incorrectos.',
                 'traceId' => 'L303'
             );
             $status = $response['errorCode'];
