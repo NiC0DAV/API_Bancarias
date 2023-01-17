@@ -18,11 +18,9 @@ class CreditInscriptionController extends Controller
 
         $docNum = $payloadParse->client->documentNumber;
 
-        $checkClient = CreditSimulate::where([
-            'documentNumber' => $docNum
-        ])->latest()->first();
+        $checkStatus = $this->checkIfIsvalidToFinance($$payloadParse->client->email);
 
-        if ($checkClient->validToFinance == 1) {
+        if (boolval($checkStatus['validToFinance'])) {
             $inscriptionId = base64_encode($unixTime . $docNum);
 
             $creditInscription = new FN_CREDITINSCRIPTION();
