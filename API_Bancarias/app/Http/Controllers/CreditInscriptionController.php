@@ -55,4 +55,21 @@ class CreditInscriptionController extends Controller
 
 
     }
+
+    private function checkIfIsvalidToFinance($email)
+    {
+        $financeData = StatusFinanceForEmail::where('email', $email)->first();
+        if (!$financeData) {
+            return [
+                'validToFinance'   => false,
+                'guaranteeRate'    => 0,
+                'causalRejection'  => 'The client is not valid to finance.'
+            ];
+        }
+        return [
+            'validToFinance'   => $financeData['response_status'],
+            'guaranteeRate'    => $financeData['guaranteeRate'],
+            'causalRejection'  => $financeData['causalRejection']
+        ];
+    }
 }
