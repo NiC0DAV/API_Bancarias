@@ -16,15 +16,21 @@ class FinanceValidateController extends Controller
         ]);
 
         if ($validate->fails()) {
-            $response = array('status' => '400');
+            $response = array(
+                'errorCode' => '400',
+                'errorDescription' => 'Sintaxis invalida, verifique los datos ingresados e intentelo nuevamente',
+                'traceId' => '400'
+            );            
             $statusCode = '400';
         } else {
 
             try {
                     $orderId =  $request->input('orderId');
+                    $financialCode = $request->input('financialCode');
 
                     $consultOrderId =  FN_CREDITINSCRIPTION::where([
-                        'orderId' => $orderId
+                        'orderId' => $orderId,
+                        'financialCode' => $financialCode
                     ])->latest()->first();
 
                     if (is_object($consultOrderId)) {
@@ -75,20 +81,19 @@ class FinanceValidateController extends Controller
 
                     } else {
 
-                        $statusCode = '400';
+                        $statusCode = '404';
                         $response = array(
-                            'statusCode' => '404',
-                            'code' => 404,
-                            'message' => 'OrderId NotFound',
-
+                            'errorCode' => '404',
+                            'errorDescription' => 'OrderId no encontrado',
+                            'traceId' => '404'
                         );
                     }
             } catch (\Throwable $th) {
-                $statusCode = '400';
+                $statusCode = '404';
                 $response = array(
-                    'statusCode' => '404',
-                    'code' => 404,
-                    'message' => 'OrderId NotFound',
+                    'errorCode' => '404',
+                    'errorDescription' => 'OrderId no encontrado',
+                    'traceId' => '404'
                 );
             }
         }
