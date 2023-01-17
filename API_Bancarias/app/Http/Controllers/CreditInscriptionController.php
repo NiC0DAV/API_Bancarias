@@ -64,7 +64,7 @@ class CreditInscriptionController extends Controller
             return [
                 'validToFinance'   => false,
                 'guaranteeRate'    => 0,
-                'causalRejection'  => 'The client is not valid to finance.'
+                'causalRejection'  => 'No es posible financiar el cliente.'
             ];
         }
         return [
