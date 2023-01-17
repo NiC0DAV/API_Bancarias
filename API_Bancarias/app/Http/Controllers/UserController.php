@@ -36,10 +36,9 @@ class UserController extends Controller
 
         if ($validate->fails()) {
             $response = array(
-                'status' => 'Invalid Client',
                 'code' => 404,
-                'message' => 'The client could not be registered.',
-                'data' => $validate->errors()
+                'errorDescription' => 'El cliente no pudo ser registrado, por favor intentelo nuevamente.',
+                'errors' => $validate->errors()
             );
         } else {
             $client = new User();
@@ -53,7 +52,7 @@ class UserController extends Controller
             $response = array(
                 'status' => 'Success',
                 'code' => 200,
-                'message' => 'The client has been created successfully',
+                'message' => 'El cliente ha sido creado exitosamente',
                 'clientId' => $client->clientId,
                 'clientSecret' => $client->clientSecret
             );
