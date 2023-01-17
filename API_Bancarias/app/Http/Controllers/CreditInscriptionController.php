@@ -32,7 +32,7 @@ class CreditInscriptionController extends Controller
 
         if ($validate->fails()) {
             $return = array(
-                'errorCode' => '404',
+                'errorCode' => '400',
                 'errorDescription' => 'El orderId ingresado ya se encuentra asociado a un financiamiento.',
                 'traceId' => '404'
             );
@@ -64,7 +64,11 @@ class CreditInscriptionController extends Controller
             $return = array('inscriptionId'   => $inscriptionId);
 
         }else{
-            $return = array('error'   => 'No es posible financiar el cliente.');
+            $return = array(
+                'errorCode' => 'L407',
+                'errorDescription' => 'No es posible financiar el cliente.',
+                'traceId' => 'L407'
+            );
         }
 
         return $return;
