@@ -93,7 +93,7 @@ class UserController extends Controller
                 if (!empty($signUp) && $signUp != '') {
                     $response = array(
                         'accessToken' => $signUp,
-                        'expirationTime' => 5,
+                        'expirationTime' => 10,
                     );
                     $status = 200;
                 } else {

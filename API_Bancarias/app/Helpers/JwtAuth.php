@@ -33,7 +33,7 @@ class JwtAuth
                 'clientId' => $client->clientId,
                 'clientSecret' => $client->clientSecret,
                 'iat' => time(),
-                'exp' => time() + (60 * 5) //5 min
+                'exp' => time() + (60 * 10) //10 min
             );
 
             $jwtToken = JWT::encode($data, $this->secretKey, 'HS256');
