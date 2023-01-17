@@ -45,12 +45,15 @@ class FinancierController extends Controller
         $response = ['isValidToFinance' => boolval($creditSimulateValues['validToFinance'])];
 
         $response['causalRejection'] = !$creditSimulateValues['validToFinance'] ? $creditSimulateValues['causalRejection'] : '';
-        $response['financingSimulationInfo']['monthlyPayment'] = $monthlyPaymentCalc ? $monthlyPaymentCalc : '';
-        $response['financingSimulationInfo']['maximumPaymentTerm'] = $creditSimulateValues['maximunPaymentTerm'];
-        $response['financingSimulationInfo']['interestRate'] = $creditSimulateValues['interestRate'];
-        $response['financingSimulationInfo']['interestRateType'] = $creditSimulateValues['interestRateType'];
-        $response['financingSimulationInfo']['guaranteeRate'] =  $creditSimulateValues['guaranteeRate'];
-        $response['conditionsUrl'] =  route('fn-conditions');
+        if ($response['isValidToFinance']) {
+            $response['financingSimulationInfo']['monthlyPayment'] = $monthlyPaymentCalc ? $monthlyPaymentCalc : '';
+            $response['financingSimulationInfo']['maximumPaymentTerm'] = $creditSimulateValues['maximunPaymentTerm'];
+            $response['financingSimulationInfo']['interestRate'] = $creditSimulateValues['interestRate'];
+            $response['financingSimulationInfo']['interestRateType'] = $creditSimulateValues['interestRateType'];
+            $response['financingSimulationInfo']['guaranteeRate'] =  $creditSimulateValues['guaranteeRate'];
+            $response['conditionsUrl'] =  route('fn-conditions');
+        }
+
         return response()->json($response);
     }
 
@@ -61,7 +64,7 @@ class FinancierController extends Controller
             return [
                 'validToFinance'   => false,
                 'guaranteeRate'    => 0,
-                'causalRejection'  => 'The client is not valid to finance.'
+                'causalRejection'  => 'No es posible financiar el cliente.'
             ];
         }
         return [

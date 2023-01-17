@@ -5,6 +5,7 @@ namespace App\Helpers;
 use Firebase\JWT\JWT;
 use App\Models\User;
 use DomainException;
+use Exception;
 use Firebase\JWT\ExpiredException;
 use Firebase\JWT\Key;
 use InvalidArgumentException;
@@ -69,14 +70,10 @@ class JwtAuth
             }
 
             $decoded = JWT::decode($jwt, new key($this->secretKey, 'HS256'));
-        } catch (DomainException $e) {
-            $response = 'Unsupported algorithm or bad key was specified';
         } catch (ExpiredException $e) {
-            $response = 'Expired token';
-        } catch (InvalidArgumentException $e) {
-            $response = 'Key may not be empty';
-        } catch (UnexpectedValueException $e) {
-            $response = 'Wrong number of segments';
+            $response = 'Token Expirado';
+        } catch (Exception $e) {
+            $response = 'Autenticación incorrecta';
         }
 
         if (!empty($decoded) && is_object($decoded) && isset($decoded->clientId) && isset($decoded->clientSecret)) {

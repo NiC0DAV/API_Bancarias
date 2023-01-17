@@ -26,7 +26,7 @@ class ApiAuthMiddleware
         } else {
 
             $data = array(
-                'errorCode' => 403,
+                'errorCode' => 401,
                 'errorDescription' => $checkToken,
                 'traceId' => 'L102'
             );
