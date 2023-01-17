@@ -38,17 +38,27 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e, $request) {
 
         });
-
-        $this->renderable(function (Throwable  $e, $request) {
-            if ($request->is('api/*')) {
-                if ($e instanceof ValidationException ) {
-                    return response()->json([
-                        'errorCode' => '400',
-                        'message' => 'La petición no es valida.',
-                        'errorDescription' => $e->validator->getMessageBag(),
-                    ], 404);
-                }
-            }
-        });
     }
+
+
+    /**
+     * Render custom exception.
+     *
+     * @return void
+     */
+    public function render($request, Throwable $exception)
+    {
+        if ($exception instanceof ValidationException && $request->wantsJson()) {
+
+            return response()->json([
+                'errorCode' => '400',
+				'errorDescription' => 'La petición no es valida.',
+				'errors' => $exception->validator->getMessageBag()], 400);
+
+        }
+
+        return parent::render($request, $exception);
+    }
+
+
 }
