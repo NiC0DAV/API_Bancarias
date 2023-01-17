@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Dotenv\Exception\ValidationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -34,8 +35,30 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->reportable(function (Throwable $e, $request) {
+
         });
     }
+
+
+    /**
+     * Render custom exception.
+     *
+     * @return void
+     */
+    public function render($request, Throwable $exception)
+    {
+        if ($request->wantsJson()) {
+            dd($exception);
+            return response()->json([
+                'errorCode' => '400',
+				'errorDescription' => 'La petición no es valida.',
+				'errors' => $exception->validator->getMessageBag()], 400);
+
+        }
+
+        return parent::render($request, $exception);
+    }
+
+
 }
