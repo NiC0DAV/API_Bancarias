@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Exception;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
@@ -35,18 +36,16 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (ValidationException $e, $request) {
+        $this->reportable(function (Exception $e, $request) {
 
         });
 
         $this->renderable(function (ValidationException $e, $request) {
-            if ($request->wantsJson()) {
                 return response()->json([
                     'errorCode' => '400',
                     'errorDescription' => 'La petición no es valida.',
                     'errors' => $e->validator->getMessageBag()
                 ], 400);
-            }
         });
     }
 
