@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MSCusBilCredInscriptionEFRequest;
 use App\Models\CreditSimulate;
 use App\Models\FN_CREDITINSCRIPTION;
+use App\Models\StatusFinanceForEmail;
 use Illuminate\Http\Request;
 
 class CreditInscriptionController extends Controller
@@ -18,7 +19,7 @@ class CreditInscriptionController extends Controller
 
         $docNum = $payloadParse->client->documentNumber;
 
-        $checkStatus = $this->checkIfIsvalidToFinance($$payloadParse->client->email);
+        $checkStatus = $this->checkIfIsvalidToFinance($payloadParse->client->email);
 
         if (boolval($checkStatus['validToFinance'])) {
             $inscriptionId = base64_encode($unixTime . $docNum);
