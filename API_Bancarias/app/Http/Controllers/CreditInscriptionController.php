@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MSCusBilCredInscriptionEFRequest;
 use App\Models\CreditSimulate;
 use App\Models\FN_CREDITINSCRIPTION;
-<<<<<<< HEAD
 use Illuminate\Support\Facades\Validator;
-=======
+
 use App\Models\StatusFinanceForEmail;
->>>>>>> 2e2be25aa292f16ed6aafcd63bd5ebbf2deb6270
+
 use Illuminate\Http\Request;
 
 class CreditInscriptionController extends Controller
@@ -26,7 +25,7 @@ class CreditInscriptionController extends Controller
 
         $checkStatus = $this->checkIfIsvalidToFinance($payloadParse->client->email);
 
-<<<<<<< HEAD
+
         $validate = Validator::make($paramsArr, [
             'orderId' => 'required|unique:FN_CREDITINSCRIPTIONS'
         ]);
@@ -37,10 +36,8 @@ class CreditInscriptionController extends Controller
                 'errorDescription' => 'El orderId ingresado ya se encuentra asociado a un financiamiento.',
                 'traceId' => '404'
             );
-        } elseif (!$validate->fails() && $checkClient->validToFinance == 1) {
-=======
-        if (boolval($checkStatus['validToFinance'])) {
->>>>>>> 2e2be25aa292f16ed6aafcd63bd5ebbf2deb6270
+        } elseif (!$validate->fails() && boolval($checkStatus['validToFinance'])) {
+
             $inscriptionId = base64_encode($unixTime . $docNum);
 
             $creditInscription = new FN_CREDITINSCRIPTION();
@@ -64,22 +61,13 @@ class CreditInscriptionController extends Controller
             $creditInscription->inscriptionId = $inscriptionId;
             $creditInscription->save();
 
-<<<<<<< HEAD
             $return = array('inscriptionId'   => $inscriptionId);
+
+        }else{
+            $return = array('error'   => 'No es posible financiar el cliente.');
         }
 
         return $return;
-=======
-            return [
-                'inscriptionId'   => $inscriptionId,
-            ];
-        }else{
-            return [
-                'error'   => 'No es posible financiar el cliente.',
-            ];
-        }
-
-
     }
 
     private function checkIfIsvalidToFinance($email)
@@ -97,6 +85,6 @@ class CreditInscriptionController extends Controller
             'guaranteeRate'    => $financeData['guaranteeRate'],
             'causalRejection'  => $financeData['causalRejection']
         ];
->>>>>>> 2e2be25aa292f16ed6aafcd63bd5ebbf2deb6270
+
     }
 }
