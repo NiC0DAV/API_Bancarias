@@ -48,14 +48,14 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        // if ($request->wantsJson()) {
+        if ($request->wantsJson()) {
+            dd($exception);
+            return response()->json([
+                'errorCode' => '400',
+				'errorDescription' => 'La petición no es valida.',
+				'errors' => $exception->validator->getMessageBag()], 400);
 
-        //     return response()->json([
-        //         'errorCode' => '400',
-		// 		'errorDescription' => 'La petición no es valida.',
-		// 		'errors' => $exception->validator->getMessageBag()], 400);
-
-        // }
+        }
 
         return parent::render($request, $exception);
     }
