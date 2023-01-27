@@ -90,7 +90,7 @@ class FinanceClientController extends Controller
         $dataClient->update();
 
         $redirecUrl = $dataClient->redirectionUrl;
-        $redirecUrl .= '?orderId=' . $dataClient->orderId;
+        $redirecUrl .= '&orderId=' . $dataClient->orderId;
         $redirecUrl .= '&statusCode=' . $dataClient->status;
 
         return redirect($redirecUrl);

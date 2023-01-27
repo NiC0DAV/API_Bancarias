@@ -12,7 +12,8 @@ class FinanceValidateController extends Controller
     function MSCusBilCredValidateEF(Request $request)
     {
         $validate = Validator::make($request->all(), [
-            'orderId' => 'required'
+            'orderId' => 'required',
+            'financialCode' => 'required'
         ]);
 
         if ($validate->fails()) {
@@ -20,7 +21,7 @@ class FinanceValidateController extends Controller
                 'errorCode' => '400',
                 'errorDescription' => 'Sintaxis invalida, verifique los datos ingresados e intentelo nuevamente',
                 'traceId' => '400'
-            );            
+            );
             $statusCode = '400';
         } else {
 
