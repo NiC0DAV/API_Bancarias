@@ -43,7 +43,7 @@ class Handler extends ExceptionHandler
         $this->renderable(function (ValidationException $e, $request) {
                 return response()->json([
                     'errorCode' => '400',
-                    'errorDescription' => $e->validator->getMessageBag(),
+                    'errorDescription' => "La petición no es valida, verifica enviar los parámetros correctos.",
                     'traceId' => 'L8001'
                 ], 400);
         });

@@ -63,6 +63,10 @@ class UserController extends Controller
 
     public function MSCusBilCredAuthenticateEF(Request $request)
     {
+        $validate = Validator::make($request,[
+            'clientId' => 'required',
+            'clientSecret' => 'required'
+        ]);
         $jwtAuth = new JwtAuth();
         $clientId = $request->input('clientId', null);
         $clientSecret = $request->input('clientSecret', null);
