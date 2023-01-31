@@ -36,14 +36,18 @@ class FinanceValidateController extends Controller
 
                     if (is_object($consultOrderId)) {
 
-                        $dataClient =  CreditSimulate::where('documentNumber', $consultOrderId['clientDocNumber'])->latest()->first();
+                        /*$dataClient =  CreditSimulate::where('documentNumber', $consultOrderId['clientDocNumber'])->latest()->first();
                         if ($dataClient['guaranteeRate'] > 0) {
                             $interestPercentage = ($dataClient['guaranteeRate'] / 100);
                             $calcGuarranteeRate = $consultOrderId['totalAmount'] * $interestPercentage;
                             $newTotal = $consultOrderId['totalAmount'] - $calcGuarranteeRate;
                         } else {
                             $newTotal = $consultOrderId['totalAmount'];
-                        }
+                        }*/
+
+                        $interestPercentage = 15 / 100;
+                        $calcGuarranteeRate = $consultOrderId['totalAmount'] * $interestPercentage;
+                        $newTotal = $consultOrderId['totalAmount'] - $calcGuarranteeRate;
 
                         $statusCode = '200';
 
