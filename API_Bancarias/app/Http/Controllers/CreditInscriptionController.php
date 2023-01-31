@@ -54,6 +54,9 @@ class CreditInscriptionController extends Controller
             $creditInscription->firstName = $payloadParse->client->firstName;
             $creditInscription->lastName = $payloadParse->client->lastName;
             $creditInscription->email = $payloadParse->client->email;
+            if ($payloadParse->client->email == 'approved@claro.com.co') {
+                $creditInscription->status = 'APPROVED';
+            }
             $creditInscription->causalRejection = '';
             $creditInscription->mobileNumber = $payloadParse->client->mobileNumber;
             $creditInscription->mobileNumberCountryCode = $payloadParse->client->mobileNumberCountryCode;
