@@ -54,10 +54,12 @@ class CreditInscriptionController extends Controller
             $creditInscription->firstName = $payloadParse->client->firstName;
             $creditInscription->lastName = $payloadParse->client->lastName;
             $creditInscription->email = $payloadParse->client->email;
+            $creditInscription->causalRejection = '';
             if ($payloadParse->client->email == 'approved@claro.com.co') {
                 $creditInscription->status = 'APPROVED';
+                $creditInscription->causalRejection = $this->unique_code(9);
+                $creditInscription->cuotas = 12;
             }
-            $creditInscription->causalRejection = '';
             $creditInscription->mobileNumber = $payloadParse->client->mobileNumber;
             $creditInscription->mobileNumberCountryCode = $payloadParse->client->mobileNumberCountryCode;
             $creditInscription->redirectionUrl = $payloadParse->redirectionUrl;
@@ -93,5 +95,9 @@ class CreditInscriptionController extends Controller
             'causalRejection'  => $financeData['causalRejection']
         ];
 
+    }
+
+    function unique_code($limit){
+        return substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, $limit);
     }
 }
