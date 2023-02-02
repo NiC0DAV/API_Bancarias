@@ -48,7 +48,7 @@ class FinanceClientController extends Controller
             $causalRejection = $this->unique_code(9);
         } else {
             $status = 'DECLINED';
-            $causalRejection = 'The client is not valid to finance.';
+            $causalRejection = 'El cliente no es valido para un financiamiento.';
         }
         // $status = ['APPROVED', 'PENDING', 'REJECTED', 'ABANDONED', 'DECLINED'];
         // $randStatus = $status[mt_rand(0, count($status) - 1)];
@@ -70,7 +70,7 @@ class FinanceClientController extends Controller
             return [
                 'validToFinance'   => false,
                 'guaranteeRate'    => 0,
-                'causalRejection'  => 'The client is not valid to finance.'
+                'causalRejection'  => 'El cliente no es valido para un financiamiento.'
             ];
         }
         return [
@@ -84,7 +84,7 @@ class FinanceClientController extends Controller
     {
         if (empty($dataClient->status)) {
             $dataClient->status = 'ABORTED';
-            $dataClient->causalRejection = 'The financial process has been canceled.';
+            $dataClient->causalRejection = 'El proceso de financiamiento ha sido cancelado.';
         }
 
         $dataClient->update();
