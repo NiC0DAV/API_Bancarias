@@ -33,7 +33,7 @@ class FinancierController extends Controller
         $financeValidation = $this->checkIfIsvalidToFinance($request['client']['email']);
         $request['interestRateType'] = 1;
         $request['interestRate'] = 15.0;
-        $request['maximunPaymentTerm'] = 36;
+        $request['maximunPaymentTerm'] = 12;
         $monthlyPaymentCalc = ($request['totalAmount'] + $request['shippingAmount'] + $request['totalTaxesAmount']) / $request['maximunPaymentTerm'];
 
         $creditSimulateValues = array_merge($request->all(), $financeValidation);
