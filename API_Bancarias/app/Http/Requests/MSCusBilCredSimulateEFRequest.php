@@ -25,7 +25,7 @@ class MSCusBilCredSimulateEFRequest extends FormRequest
     {
         return [
             'financialCode'                  =>    'required',
-            'totalAmount'                    =>    'required|numeric|digits_between:4,8',
+            'totalAmount'                    =>    'required|numeric|digits_between:1,8',
             'shippingAmount'                 =>    'required|numeric',
             'totalTaxesAmount'               =>    'required|numeric',
             'currency'                       =>    'required',
