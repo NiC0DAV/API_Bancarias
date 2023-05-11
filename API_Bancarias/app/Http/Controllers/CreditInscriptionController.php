@@ -71,7 +71,7 @@ class CreditInscriptionController extends Controller
         }else{
             $return = array(
                 'errorCode' => 'L407',
-                'errorDescription' => 'No es posible financiar el cliente.',
+                'errorDescription' => 'No es posible financiar el cliente en este momento.',
                 'traceId' => 'L407'
             );
         }
@@ -86,7 +86,7 @@ class CreditInscriptionController extends Controller
             return [
                 'validToFinance'   => false,
                 'guaranteeRate'    => 0,
-                'causalRejection'  => 'No es posible financiar el cliente.'
+                'causalRejection'  => 'No es posible financiar el cliente en este momento.'
             ];
         }
         return [

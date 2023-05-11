@@ -64,7 +64,7 @@ class FinancierController extends Controller
             return [
                 'validToFinance'   => false,
                 'guaranteeRate'    => 0,
-                'causalRejection'  => 'No es posible financiar el cliente.'
+                'causalRejection'  => 'No es posible financiar el cliente en este momento.'
             ];
         }
         return [
